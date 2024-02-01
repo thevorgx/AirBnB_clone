@@ -1,6 +1,6 @@
 # AirBnB clone - The console
 
-The console is the first part of the **AirBnB clone** project which aims to deploy a simple copy of the AirBnB website to cover all fundamental concepts of the Holberton School higher level programming track.
+The console is the first part of the **AirBnB clone** project which aims to deploy a simple copy of the AirBnB website to cover all fundamental concepts of the high level programming.
 
 <br>
 
@@ -13,12 +13,18 @@ The console is the first part of the **AirBnB clone** project which aims to depl
 
 <br>
 
-## Overview
+## General
 
-This first part of the project focuses on creating a command interpreter that allows to:
-- create the data model.
-- manage (create, update and destroy) objects via a console.
-- store and persist objects to a file (JSON file).
+- How to create a Python package
+- How to create a command interpreter in Python using the cmd module
+- What is Unit testing and how to implement it in a large project
+- How to serialize and deserialize a Class
+- How to write and read a JSON file
+- How to manage datetime
+- What is an UUID
+- What is *args and how to use it
+- What is **kwargs and how to use it
+- How to handle named arguments in a function
 
 
 ## Authors
