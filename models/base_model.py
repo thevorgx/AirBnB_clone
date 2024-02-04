@@ -4,6 +4,7 @@
 
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -24,6 +25,7 @@ class BaseModel:
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                     else:
                         setattr(self, key, value)
+        models.storage.new(self)
 
     def __str__(self):
         """special method that return a formated string ready to be printed"""
@@ -31,8 +33,9 @@ class BaseModel:
         return (f_string)
 
     def save(self):
-        """method that Update the 'updated_at' attr to the current datetime."""
+        """Update 'updated_at' attribute and save changes to storage"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """method that return a dict containing different attributes"""
