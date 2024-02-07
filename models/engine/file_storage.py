@@ -34,12 +34,10 @@ class FileStorage:
     def reload(self):
         """deserialize data from JSON file to objs and load into __objects"""
         path = self.__file_path
-        try:
+        if isfile(path):
             with open(path, "r") as f:
                 dict_objects = json.load(f)
             for key, value in dict_objects.items():
                 cls_name, obj_id = key.split(".")
                 cls_instance = eval(cls_name)(**value)
                 self.__objects[key] = cls_instance
-        except:
-            pass
