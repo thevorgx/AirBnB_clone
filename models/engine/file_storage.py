@@ -5,7 +5,7 @@
 from models.base_model import BaseModel
 from os.path import isfile
 import json
-
+from models.user import User
 
 class FileStorage:
     """FileStorage class"""

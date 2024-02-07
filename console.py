@@ -5,13 +5,17 @@
 import cmd
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
 
     prompt = "(hbnb) "
-    airbnb_classes = {"BaseModel": BaseModel}
+    airbnb_classes = {
+        "BaseModel": BaseModel,
+        "User": User
+        }
 
     def do_quit(self, command):
         """quit when the user write the quit command"""
