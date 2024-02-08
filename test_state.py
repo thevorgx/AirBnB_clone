@@ -9,13 +9,13 @@ for obj_id in all_objs.keys():
     obj = all_objs[obj_id]
     print(obj)
 
-print("-- Create a new User --")
+print("-- Create a new State --")
 my_state = State()
 my_state.name = "Betty"
 my_state.save()
 print(my_state)
 
-print("-- Create a new User 2 --")
+print("-- Create a new State 2 --")
 my_state2 = State()
 my_state2.first_name = "John"
 
