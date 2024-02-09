@@ -3,6 +3,7 @@
 
 
 import cmd
+import re
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -181,16 +182,23 @@ class HBNBCommand(cmd.Cmd):
             setattr(all_instances[instance_to_upd], attribute_name, attribute_value)
 
     method_class = {
-        "all": do_all
+        "all": do_all,
+        "destroy": do_destroy
     }
 
     def default(self, line):
 
         classes = self.airbnb_classes
+
+        if '.' not in line:
+            print(f"*** Unknown syntax: {line}")
+            return
+
         tokenize_cmd = tuple(line.split('.'))
 
         if not line.strip():
             return
+
 
         if tokenize_cmd[0] not in classes:
             print("** class doesn't exist **")
@@ -203,10 +211,13 @@ class HBNBCommand(cmd.Cmd):
 
         attribute_method = tokenize_cmd[1]
         if '(' in attribute_method:
+            regex = r'\(["\)]+([^\)]+)\"\)'
+            matches = re.findall(regex, attribute_method)
+            regex_matches = ''.join(matches)
             attribute_method = attribute_method.split('(')[0]
             if attribute_method not in self.method_class:
                 return
-        self.do_all(class_name)
+        expression = f"{attribute_method} {class_name} {regex_matches}"
 
 
 
