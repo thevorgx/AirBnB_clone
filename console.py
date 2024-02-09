@@ -25,7 +25,6 @@ class HBNBCommand(cmd.Cmd):
         "Place": Place,
         "Review": Review
         }
-
     def do_quit(self, command):
         """quit when the user write the quit command"""
         return (True)
@@ -130,7 +129,6 @@ class HBNBCommand(cmd.Cmd):
             return
 
         cls_name = tokenize_cmd[0]
-
         if cls_name not in classes:
             print("** class doesn't exist **")
             return
@@ -181,6 +179,34 @@ class HBNBCommand(cmd.Cmd):
         else:
             attribute_value = tokenize_cmd[3]
             setattr(all_instances[instance_to_upd], attribute_name, attribute_value)
+
+    method_class = {
+        "all": do_all
+    }
+
+    def default(self, line):
+
+        classes = self.airbnb_classes
+        tokenize_cmd = tuple(line.split('.'))
+
+        if not line.strip():
+            return
+
+        if tokenize_cmd[0] not in classes:
+            print("** class doesn't exist **")
+            return
+
+        class_name = tokenize_cmd[0]
+
+        if len(tokenize_cmd) < 2:
+            return
+
+        attribute_method = tokenize_cmd[1]
+        if '(' in attribute_method:
+            attribute_method = attribute_method.split('(')[0]
+            if attribute_method not in self.method_class:
+                return
+        self.do_all(class_name)
 
 
 
