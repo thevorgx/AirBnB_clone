@@ -173,14 +173,20 @@ class HBNBCommand(cmd.Cmd):
         if len(tokenize_cmd) < 3:
             print("** attribute name missing **")
             return
-        attribute_name = tokenize_cmd[2]
+        attri_name = tokenize_cmd[2]
 
         if len(tokenize_cmd) < 4:
             print("** value missing **")
             return
         else:
-            attribute_value = tokenize_cmd[3]
-            setattr(all_instances[instance_to_upd], attribute_name, attribute_value)
+            instance = all_instances[instance_to_upd]
+            attri_value = tokenize_cmd[3]
+            if isinstance(instance.__dict__[attri_name], int):
+                attr_value = int(attr_value)
+            elif isinstance(instance.__dict__[attri_name], float):
+                attr_value = float(attr_value)
+            setattr(instance, attri_name, attri_value)
+            storage.save()
 
     def do_count(self, command):
         """count the number of instances of a class name"""
@@ -201,17 +207,17 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     method_class = [
-        "all", "show", "destroy", "count"
+        "all", "show", "destroy", "count", "update"
     ]
 
     def default(self, line):
+        """default method when invalid command passed"""
 
         classes = self.airbnb_classes
 
         if not '.' and "()" in line:
             print(f"*** Unknown syntax: {line}")
             return
-
 
         tokenize_cmd = tuple(line.split('.'))
 
@@ -233,6 +239,9 @@ class HBNBCommand(cmd.Cmd):
             matches = re.findall(regex, attribute_method)
             if matches:
                 regex_matches = ''.join(matches)
+                if ',' and '"' in regex_matches:
+                    text = regex_matches
+                    regex_matches = text.replace(',', '').replace('"', '')
             attribute_method = attribute_method.split('(')[0]
             if attribute_method not in self.method_class:
                 return
@@ -250,6 +259,8 @@ class HBNBCommand(cmd.Cmd):
             self.do_destroy(expression)
         elif "count" == attribute_method:
             self.do_count(expression)
+        elif "update" == attribute_method:
+            self.do_update(expression)
 
 
 if __name__ == '__main__':
