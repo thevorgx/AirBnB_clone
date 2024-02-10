@@ -36,15 +36,12 @@ class HBNBCommand(cmd.Cmd):
         """quit when user use ctrl+D"""
         return (True)
 
-    def help_quit(self):
-        """print documentation for the "quit" command"""
-        print("Quit command to exit the program")
-
     def emptyline(self):
         """execute nothing when the user hit enter without command"""
         pass
 
     def do_create(self, command):
+        """create an instance by giving the classe name as arg"""
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
 
@@ -63,6 +60,7 @@ class HBNBCommand(cmd.Cmd):
         print(create_instance.id)
 
     def do_show(self, command):
+        """show an instance by giving the classe name and id as arg"""
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
 
@@ -92,6 +90,7 @@ class HBNBCommand(cmd.Cmd):
         print(instance_to_show)
 
     def do_destroy(self, command):
+        """destroy an instance by giving the classe name and id as arg"""
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
 
@@ -120,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, command):
-
+        """show all instances or instances with the same classe name"""
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
         if not tokenize_cmd:
@@ -146,6 +145,7 @@ class HBNBCommand(cmd.Cmd):
         print(cls_instances)
 
     def do_update(self, command):
+        """Update an instance attributes or add a new one"""
 
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
@@ -183,6 +183,7 @@ class HBNBCommand(cmd.Cmd):
             setattr(all_instances[instance_to_upd], attribute_name, attribute_value)
 
     def do_count(self, command):
+        """count the number of instances of a class name"""
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
         if len(tokenize_cmd) != 1:
