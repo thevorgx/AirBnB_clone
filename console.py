@@ -256,6 +256,8 @@ class HBNBCommand(cmd.Cmd):
                                 third_arg = float(third_arg)
                             except ValueError:
                                 pass
+                    if not isinstance(third_arg, (int, float)):
+                        third_arg = f'"{third_arg}"'
                     removed_arg = find_third_arg.pop(2)
                     if isinstance(third_arg, str):
                         result_string = ''.join(third_arg)
