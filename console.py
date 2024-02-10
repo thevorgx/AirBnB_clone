@@ -167,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
         instance_to_upd = f"{cls_name}.{instance_id}"
         all_instances = storage.all()
         if instance_to_upd not in all_instances:
-            print("** attribute name missing **")
+            print("** no instance found **")
             return
 
         if len(tokenize_cmd) < 3:
