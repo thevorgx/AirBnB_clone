@@ -181,10 +181,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             instance = all_instances[instance_to_upd]
             attri_value = tokenize_cmd[3]
-            if isinstance(instance.__dict__[attri_name], int):
-                attri_value = int(attri_value)
-            elif isinstance(instance.__dict__[attri_name], float):
-                attri_value = float(attri_value)
+            if '"' in attri_value:
+                attri_value = attri_value.replace('"', '')
             setattr(instance, attri_name, attri_value)
             storage.save()
 
