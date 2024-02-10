@@ -13,6 +13,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class"""
 
@@ -26,6 +27,7 @@ class HBNBCommand(cmd.Cmd):
         "Place": Place,
         "Review": Review
         }
+
     def do_quit(self, command):
         """quit when the user write the quit command"""
         return (True)
@@ -117,7 +119,6 @@ class HBNBCommand(cmd.Cmd):
         del all_instances[instance_to_del]
         storage.save()
 
-
     def do_all(self, command):
 
         classes = self.airbnb_classes
@@ -140,7 +141,6 @@ class HBNBCommand(cmd.Cmd):
 
         for instance in instances:
             if type(instance).__name__ == cls_name:
-                print(type(instance).__name__)
                 cls_instances.append(str(instance))
 
         print(cls_instances)
@@ -182,11 +182,26 @@ class HBNBCommand(cmd.Cmd):
             attribute_value = tokenize_cmd[3]
             setattr(all_instances[instance_to_upd], attribute_name, attribute_value)
 
+    def do_count(self, command):
+        classes = self.airbnb_classes
+        tokenize_cmd = command.split()
+        if len(tokenize_cmd) != 1:
+            return
+        cls_name = tokenize_cmd[0]
+        if cls_name not in classes:
+            print("** class doesn't exist **")
+            return
+
+        count = 0
+        all_instances = storage.all()
+        for key in all_instances:
+            if key.split('.')[0] == cls_name:
+                count += 1
+        print(count)
+
     method_class = [
-        "all", "show", "destroy"
+        "all", "show", "destroy", "count"
     ]
-
-
 
     def default(self, line):
 
@@ -200,7 +215,6 @@ class HBNBCommand(cmd.Cmd):
 
         if not line.strip():
             return
-
 
         if tokenize_cmd[0] not in classes:
             print("** class doesn't exist **")
@@ -232,8 +246,8 @@ class HBNBCommand(cmd.Cmd):
             self.do_all(expression)
         elif "destroy" == attribute_method:
             self.do_destroy(expression)
-
-
+        elif "count" == attribute_method:
+            self.do_count(expression)
 
 
 if __name__ == '__main__':
