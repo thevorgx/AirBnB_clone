@@ -149,6 +149,9 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, command):
         """Update an instance attributes or add a new one"""
 
+        print
+        print(type(command))
+        print
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
         if not tokenize_cmd:
@@ -216,7 +219,7 @@ class HBNBCommand(cmd.Cmd):
 
         classes = self.airbnb_classes
 
-        if not '.' and "()" in line:
+        if '.' not in line or '()' not in line:
             print(f"*** Unknown syntax: {line}")
             return
 
