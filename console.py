@@ -119,6 +119,7 @@ class HBNBCommand(cmd.Cmd):
 
 
     def do_all(self, command):
+
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
         if not tokenize_cmd:
@@ -181,16 +182,17 @@ class HBNBCommand(cmd.Cmd):
             attribute_value = tokenize_cmd[3]
             setattr(all_instances[instance_to_upd], attribute_name, attribute_value)
 
-    method_class = {
-        "all": do_all,
-        "destroy": do_destroy
-    }
+    method_class = [
+        "all", "show", "destroy"
+    ]
+
+
 
     def default(self, line):
 
         classes = self.airbnb_classes
 
-        if '.' not in line:
+        if '.' and '()' not in line:
             print(f"*** Unknown syntax: {line}")
             return
 
@@ -213,11 +215,23 @@ class HBNBCommand(cmd.Cmd):
         if '(' in attribute_method:
             regex = r'\(["\)]+([^\)]+)\"\)'
             matches = re.findall(regex, attribute_method)
-            regex_matches = ''.join(matches)
+            if matches:
+                regex_matches = ''.join(matches)
             attribute_method = attribute_method.split('(')[0]
             if attribute_method not in self.method_class:
                 return
-        expression = f"{attribute_method} {class_name} {regex_matches}"
+
+        if not matches:
+            expression = f"{class_name}"
+        else:
+            expression = f"{class_name} {regex_matches}"
+
+        if "all" == attribute_method:
+            self.do_all(expression)
+        elif "show" == attribute_method:
+            self.do_all(expression)
+        elif "destroy" == attribute_method:
+            self.do_destroy(expression)
 
 
 
