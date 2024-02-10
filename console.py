@@ -151,9 +151,6 @@ class HBNBCommand(cmd.Cmd):
 
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
-        print
-        print(tokenize_cmd)
-        print
         if not tokenize_cmd:
             print("** class name missing **")
             return
@@ -189,9 +186,6 @@ class HBNBCommand(cmd.Cmd):
                 attri_value = int(attri_value)
             elif isinstance(instance.__dict__[attri_name], float):
                 attri_value = float(attri_value)
-            print
-            print(type(attri_value))
-            print
             setattr(instance, attri_name, attri_value)
             storage.save()
 
@@ -249,9 +243,6 @@ class HBNBCommand(cmd.Cmd):
                 if ',' and '"' in regex_matches:
                     text = regex_matches
                     regex_matches = text.replace(',', '').replace('"', '')
-                    print
-                    print(regex_matches)
-                    print
             attribute_method = attribute_method.split('(')[0]
             if attribute_method not in self.method_class:
                 return
@@ -260,9 +251,6 @@ class HBNBCommand(cmd.Cmd):
             expression = f"{class_name}"
         else:
             expression = f"{class_name} {regex_matches}"
-            print("hahiya expression")
-            print(expression)
-
         if "all" == attribute_method:
             self.do_all(expression)
         elif "show" == attribute_method:
