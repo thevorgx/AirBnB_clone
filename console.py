@@ -148,10 +148,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, command):
         """Update an instance attributes or add a new one"""
-
-        print
-        print(type(command))
-        print
         classes = self.airbnb_classes
         tokenize_cmd = command.split()
         if not tokenize_cmd:
@@ -219,7 +215,7 @@ class HBNBCommand(cmd.Cmd):
 
         classes = self.airbnb_classes
 
-        if '.' not in line or '()' not in line:
+        if '.' not in line and '()' not in line:
             print(f"*** Unknown syntax: {line}")
             return
 
@@ -247,13 +243,35 @@ class HBNBCommand(cmd.Cmd):
                     text = regex_matches
                     regex_matches = text.replace(',', '').replace('"', '')
             attribute_method = attribute_method.split('(')[0]
+            if "update" == attribute_method:
+                find_third_arg = regex_matches.split()
+                if find_third_arg[2]:
+                    third_arg = f'"{find_third_arg[2]}"'
+                    if third_arg.startswith('"') and third_arg.endswith('"'):
+                        third_arg = third_arg[1:-1]
+                        try:
+                            third_arg = int(third_arg)
+                        except ValueError:
+                            try:
+                                third_arg = float(third_arg)
+                            except ValueError:
+                                pass
+                    removed_arg = find_third_arg.pop(2)
+                    if isinstance(third_arg, str):
+                        result_string = ''.join(third_arg)
+                    else:
+                        result_string = third_arg
+                    find_third_arg = ' '.join(find_third_arg)
             if attribute_method not in self.method_class:
                 return
 
         if not matches:
             expression = f"{class_name}"
         else:
-            expression = f"{class_name} {regex_matches}"
+            if "update" == attribute_method:
+                expression = f"{class_name} {find_third_arg} {result_string}"
+            else:
+                expression = f"{class_name} {regex_matches}"
         if "all" == attribute_method:
             self.do_all(expression)
         elif "show" == attribute_method:
