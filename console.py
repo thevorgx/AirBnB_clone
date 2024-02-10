@@ -208,9 +208,10 @@ class HBNBCommand(cmd.Cmd):
 
         classes = self.airbnb_classes
 
-        if '.' and '()' not in line:
+        if not '.' and "()" in line:
             print(f"*** Unknown syntax: {line}")
             return
+
 
         tokenize_cmd = tuple(line.split('.'))
 
@@ -244,7 +245,7 @@ class HBNBCommand(cmd.Cmd):
         if "all" == attribute_method:
             self.do_all(expression)
         elif "show" == attribute_method:
-            self.do_all(expression)
+            self.do_show(expression)
         elif "destroy" == attribute_method:
             self.do_destroy(expression)
         elif "count" == attribute_method:
