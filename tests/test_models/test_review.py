@@ -5,7 +5,7 @@ import unittest
 from models import review
 import datetime
 
-class UserTest(unittest.TestCase):
+class ReviewTest(unittest.TestCase):
     """test cases"""
 
     def test_type(self):
