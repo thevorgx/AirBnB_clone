@@ -55,6 +55,16 @@ class File_Storage_Test(unittest.TestCase):
         object_key = f"{obj.__class__.__name__}.{obj.id}"
 
         self.assertIn(object_key, storage.all())
+    
+    def test_file_storage_initialization(self):
+        """test the initialization of file storage script"""
+
+        storage = FileStorage()
+        storage.reload()
+        all_objects = storage.all()
+
+        self.assertIsInstance(all_objects, dict)
+        self.assertTrue(all_objects)
 
 if __name__ == "__main__":
     unittest.main()
