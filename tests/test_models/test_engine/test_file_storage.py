@@ -83,6 +83,15 @@ class File_Storage_Test(unittest.TestCase):
         storage = FileStorage()
         self.assertIsInstance(storage._FileStorage__objects, dict)
 
+    def test_file_path_attribute(self):
+        try:
+            file_path_type = type(FileStorage._FileStorage__file_path)
+        except AttributeError:
+            storage = FileStorage()
+            file_path_type = type(storage._FileStorage__file_path)
+
+        self.assertEqual(file_path_type, str)
+
 
 if __name__ == "__main__":
     unittest.main()
