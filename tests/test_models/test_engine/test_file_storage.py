@@ -4,6 +4,7 @@
 
 import unittest
 import json
+import os
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
@@ -65,6 +66,18 @@ class File_Storage_Test(unittest.TestCase):
 
         self.assertIsInstance(all_objects, dict)
         self.assertTrue(all_objects)
+
+    def test_create_json(self):
+        """test if the json file created correctly"""
+
+        file_path = "file.json"
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
+        storage = FileStorage()
+        storage.save()
+
+        self.assertTrue(os.path.isfile(file_path))
 
 if __name__ == "__main__":
     unittest.main()
