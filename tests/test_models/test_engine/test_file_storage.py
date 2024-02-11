@@ -31,6 +31,7 @@ class File_Storage_Test(unittest.TestCase):
         self.assertIn(object_key, storage.all())
     def test_serialize_data_method(self):
         """test save(serialize) method"""
+
         storage = FileStorage()
         obj = BaseModel()
         storage.new(obj)
@@ -42,6 +43,18 @@ class File_Storage_Test(unittest.TestCase):
 
         self.assertIn(object_key, data)
 
+    def test_deserialize_data_method(self):
+        """test reload(deserialize) method"""
+
+        storage = FileStorage()
+        obj = BaseModel()
+        storage.new(obj)
+        storage.save()
+        storage.reload()
+
+        object_key = f"{obj.__class__.__name__}.{obj.id}"
+
+        self.assertIn(object_key, storage.all())
 
 if __name__ == "__main__":
     unittest.main()
