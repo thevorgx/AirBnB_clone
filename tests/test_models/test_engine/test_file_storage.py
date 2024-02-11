@@ -3,6 +3,7 @@
 
 
 import unittest
+import json
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
@@ -28,6 +29,19 @@ class File_Storage_Test(unittest.TestCase):
         storage.new(obj)
 
         self.assertIn(object_key, storage.all())
+    def test_serialize_data_method(self):
+        """test save(serialize) method"""
+        storage = FileStorage()
+        obj = BaseModel()
+        storage.new(obj)
+        storage.save()
+
+        with open("file.json", "r") as f:
+            data = json.load(f)
+        object_key = f"{obj.__class__.__name__}.{obj.id}"
+
+        self.assertIn(object_key, data)
+
 
 if __name__ == "__main__":
     unittest.main()
