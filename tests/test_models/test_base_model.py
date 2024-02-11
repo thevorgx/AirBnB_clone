@@ -47,6 +47,16 @@ class Base_Model_Test(unittest.TestCase):
 
         self.assertNotEqual(new_updated_at, original_updated_at)
 
+    def test_to_dict_method(self):
+        """test to_dict method"""
+
+        instance = BaseModel()
+        instance_dict = instance.to_dict()
+
+        self.assertEqual(instance_dict["__class__"], "BaseModel")
+        self.assertTrue(instance_dict["created_at"])
+        self.assertTrue(instance_dict["updated_at"])
+
 
 if __name__ == "__main__":
     unittest.main()
