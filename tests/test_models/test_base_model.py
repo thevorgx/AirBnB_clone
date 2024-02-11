@@ -22,6 +22,22 @@ class Base_Model_Test(unittest.TestCase):
         self.assertIsInstance(instance.created_at, datetime)
         self.assertIsInstance(instance.updated_at, datetime)
 
+    def test_str_method(self):
+        """test __str__ method"""
+
+        instance = BaseModel()
+        instance.id = '0ba07990-9b34-41c8-a9cf-fed53f7cd400'
+        instance.created_at = datetime(2024, 2, 11, 16, 14, 47, 15113)
+        instance.updated_at = datetime(2024, 2, 11, 16, 14, 47, 15171)
+        instance.name = 'My First Model'
+        instance.my_number = 89
+
+        my_str = instance.__str__()
+
+        expected_output = "[BaseModel] (0ba07990-9b34-41c8-a9cf-fed53f7cd400) {'id': '0ba07990-9b34-41c8-a9cf-fed53f7cd400', 'created_at': datetime.datetime(2024, 2, 11, 16, 14, 47, 15113), 'updated_at': datetime.datetime(2024, 2, 11, 16, 14, 47, 15171), 'name': 'My First Model', 'my_number': 89}"
+
+        self.assertEqual(my_str, expected_output)
+
 
 if __name__ == "__main__":
     unittest.main()
