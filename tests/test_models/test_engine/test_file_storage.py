@@ -92,6 +92,10 @@ class File_Storage_Test(unittest.TestCase):
 
         self.assertEqual(file_path_type, str)
 
+    def test_base_model_inherit(self):
+        base_model = BaseModel()
+        self.assertIsInstance(base_model, BaseModel)
+
 
 if __name__ == "__main__":
     unittest.main()
