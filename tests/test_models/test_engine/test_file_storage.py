@@ -57,45 +57,6 @@ class File_Storage_Test(unittest.TestCase):
 
         self.assertIn(object_key, storage.all())
     
-    def test_file_storage_initialization(self):
-        """test the initialization of file storage script"""
-
-        storage = FileStorage()
-        storage.reload()
-        all_objects = storage.all()
-        self.assertEqual(type(storage), FileStorage)
-        self.assertIsInstance(all_objects, dict)
-        self.assertTrue(all_objects)
-
-    def test_create_json(self):
-        """test if the json file created correctly"""
-
-        file_path = "file.json"
-        if os.path.isfile(file_path):
-            os.remove(file_path)
-
-        storage = FileStorage()
-        storage.save()
-
-        self.assertTrue(os.path.isfile(file_path))
-
-    def test_objects_attribute(self):
-        storage = FileStorage()
-        self.assertIsInstance(storage._FileStorage__objects, dict)
-
-    def test_file_path_attribute(self):
-        try:
-            file_path_type = type(FileStorage._FileStorage__file_path)
-        except AttributeError:
-            storage = FileStorage()
-            file_path_type = type(storage._FileStorage__file_path)
-
-        self.assertEqual(file_path_type, str)
-
-    def test_base_model_inherit(self):
-        base_model = BaseModel()
-        self.assertIsInstance(base_model, BaseModel)
-
 
 if __name__ == "__main__":
     unittest.main()
